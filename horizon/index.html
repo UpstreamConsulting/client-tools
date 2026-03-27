@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizon Contracting Group — Operations Intake</title>
+<link rel="icon" href="https://www.teamhorizon.com/favicon.ico" type="image/x-icon">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+  :root {
+    --orange: #F57923;
+    --orange-light: #fdf0e4;
+    --green: #1D7841;
+    --green-dark: #0E3C20;
+    --green-mid: #5F9A77;
+    --green-light: #B3DDC4;
+    --green-pale: #e8f5ee;
+    --brown: #A0522D;
+    --bg: #FFFFFF;
+    --bg-alt: #F7F7F7;
+    --text: #3B3A3A;
+    --text-muted: #6b6b6b;
+    --border: #dde3df;
+    --border-focus: var(--green);
+    --selected: var(--green);
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-hover: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg-alt);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* Top brand bar */
+  .brand-bar {
+    background: var(--green-dark);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .brand-bar img { height: 40px; }
+
+  .brand-bar .brand-text {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 300;
+    opacity: 0.8;
+    border-left: 1px solid rgba(255,255,255,0.25);
+    padding-left: 16px;
+  }
+
+  .screen { display: none; max-width: 880px; margin: 0 auto; padding: 40px 24px 100px; }
+  .screen.active { display: block; }
+
+  h1 { font-size: 1.8rem; margin-bottom: 6px; font-weight: 800; color: var(--green-dark); }
+  h2 { font-size: 1.25rem; margin-bottom: 12px; color: var(--green); font-weight: 700; }
+  h3 { font-size: 1.05rem; margin-bottom: 8px; font-weight: 700; }
+  p { margin-bottom: 12px; color: var(--text-muted); }
+
+  .subtitle { font-size: 1.05rem; color: var(--orange); font-weight: 600; margin-bottom: 20px; }
+
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    box-shadow: var(--shadow);
+  }
+
+  .card h2 { color: var(--green-dark); }
+
+  .intro-steps {
+    list-style: none;
+    counter-reset: steps;
+  }
+
+  .intro-steps li {
+    counter-increment: steps;
+    padding: 12px 0 12px 48px;
+    position: relative;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .intro-steps li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+    top: 10px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: inherit;
+  }
+
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: var(--shadow-hover); }
+  .btn-green { background: var(--green); }
+  .btn-dark { background: var(--green-dark); }
+  .btn-gold { background: var(--orange); }
+  .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--green); color: var(--green); }
+  .btn-sm { padding: 8px 20px; font-size: 0.9rem; }
+  .btn-block { display: block; width: 100%; text-align: center; }
+
+  .btn-row { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+
+  /* Map */
+  .map-header {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .map-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .col-label {
+    text-align: center;
+    padding: 10px 16px;
+    border-radius: 24px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .col-label.project { background: var(--green-dark); }
+  .col-label.service { background: var(--green); }
+
+  .map-box {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    box-shadow: var(--shadow);
+  }
+
+  .map-box:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .map-box.project-box { border-left: 5px solid var(--green-dark); }
+  .map-box.service-box { border-left: 5px solid var(--green); }
+  .map-box.shared-box { border-left: 5px solid var(--orange); }
+  .map-box.cross-box { border-left: 5px solid var(--brown); }
+
+  .map-box .box-num { font-weight: 800; color: var(--green-dark); margin-right: 4px; }
+  .map-box.service-box .box-num { color: var(--green); }
+  .map-box.shared-box .box-num { color: var(--orange); }
+
+  .map-box .box-title { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .map-box .box-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 4px; }
+
+  .map-box .badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 0.7rem;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-weight: 800;
+  }
+
+  .badge.complete { background: var(--green); color: white; }
+  .badge.in-progress { background: var(--orange-light); color: var(--orange); }
+
+  .map-shared { max-width: 580px; margin: 0 auto; }
+
+  .map-arrow {
+    text-align: center;
+    color: var(--green-mid);
+    font-size: 1.4rem;
+    margin: 6px 0;
+  }
+
+  /* Confirm */
+  .confirm-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .confirm-card .question { font-weight: 700; margin-bottom: 12px; font-size: 0.95rem; color: var(--text); }
+
+  .mc-options { display: flex; flex-direction: column; gap: 8px; }
+
+  .mc-btn {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg-alt);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    font-weight: 400;
+  }
+
+  .mc-btn:hover { border-color: var(--green-mid); background: var(--green-pale); }
+  .mc-btn.selected { border-color: var(--green); background: var(--green-pale); font-weight: 600; }
+  .mc-btn.selected::before { content: "✓ "; color: var(--green); font-weight: 800; }
+
+  /* Drill */
+  .drill-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .drill-header .back-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  .drill-header .back-btn:hover { border-color: var(--green); color: var(--green); }
+
+  .drill-question {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .drill-question label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  .drill-question textarea,
+  .drill-question input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--bg-alt);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+
+  .drill-question textarea { min-height: 80px; }
+  .drill-question textarea:focus,
+  .drill-question input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px var(--green-pale); }
+
+  .drill-question .hint { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; font-style: italic; }
+
+  /* Voice-to-text mic button */
+  .input-wrap { position: relative; }
+  .input-wrap textarea,
+  .input-wrap input[type="text"] { padding-right: 44px; }
+
+  .mic-btn {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-alt);
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mic-btn:hover { background: var(--green-pale); color: var(--green); }
+  .mic-btn.recording { background: #fde8e8; color: #d32f2f; animation: pulse 1s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .mic-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* General comments */
+  .general-comments {
+    background: var(--bg);
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 20px;
+  }
+
+  .general-comments label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--green-dark);
+    font-size: 0.95rem;
+  }
+
+  .general-comments textarea {
+    width: 100%;
+    padding: 10px 44px 10px 14px;
+    background: var(--bg-alt);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.2s;
+  }
+
+  .general-comments textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px var(--green-pale); }
+  .general-comments .input-wrap { position: relative; }
+
+  /* Send */
+  .summary-block {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+    font-size: 0.85rem;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+    font-family: 'Courier New', monospace;
+    line-height: 1.5;
+  }
+
+  /* Nav bar */
+  .nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 2px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    z-index: 100;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  }
+
+  .nav-bar.hidden { display: none; }
+
+  /* Progress bar */
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--orange));
+    border-radius: 3px;
+    transition: width 0.4s;
+  }
+
+  /* Time note */
+  .time-note {
+    display: inline-block;
+    background: var(--green-pale);
+    color: var(--green-dark);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  /* Upstream credit */
+  .credit {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .credit a { color: var(--green); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .map-columns { grid-template-columns: 1fr; }
+    .btn-row { flex-direction: column; }
+    .screen { padding: 20px 14px 100px; }
+    .brand-bar { padding: 10px 14px; }
+    .brand-bar img { height: 28px; }
+    .brand-bar .brand-text { font-size: 0.75rem; padding-left: 10px; }
+    h1 { font-size: 1.4rem; }
+    .card { padding: 20px 16px; }
+    .confirm-card { padding: 16px; }
+    .drill-question { padding: 16px; }
+    .general-comments { padding: 16px; }
+    .mc-btn { padding: 10px 14px; font-size: 0.85rem; }
+    .btn { padding: 10px 24px; font-size: 0.9rem; }
+    .nav-bar { padding: 10px 14px; gap: 8px; }
+    .col-label { font-size: 0.75rem; padding: 8px 12px; }
+    .map-box { padding: 14px 12px; }
+    .map-box .box-title { font-size: 0.88rem; }
+    .mic-btn { width: 30px; height: 30px; font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Brand Bar -->
+<div class="brand-bar">
+  <img src="https://static.wixstatic.com/media/c0bd61_8a764da6637d467bb17fbd141c1ed2a7~mv2.png/v1/crop/x_11,y_0,w_1149,h_302/fill/w_596,h_156,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Horizon_ContractingGroupLogo_Reverse.png" alt="Horizon Contracting Group">
+  <span class="brand-text">Operations Intake</span>
+</div>
+
+<!-- SCREEN: Intro -->
+<div id="screen-intro" class="screen active">
+  <h1>Operations Intake</h1>
+  <p class="subtitle">Horizon Contracting Group + Upstream Consulting</p>
+
+  <div class="card">
+    <h2>What is this?</h2>
+    <p style="color: var(--text);">This is a quick walkthrough of how Horizon runs — from business development through to billing and reporting. It maps your two business rhythms (project-based work and recurring service contracts) and lets you tell us where things work, where they don't, and where the biggest opportunities are.</p>
+
+    <h2 style="margin-top: 24px;">What do I do?</h2>
+    <ol class="intro-steps">
+      <li>Review the operations map and confirm a few high-level assumptions</li>
+      <li>Click into any area to answer specific questions — take your time, your answers save automatically</li>
+      <li>When you're ready, hit <strong>Send to Levi</strong> — it packages everything up and sends it over</li>
+    </ol>
+
+    <div class="time-note">Takes about 10–15 minutes. You can close and come back — nothing is lost.</div>
+    <div class="time-note" style="margin-left: 8px;">🎙️ Tap the mic icon on any text field to use voice-to-text.</div>
+  </div>
+
+  <button class="btn btn-block btn-green" onclick="showScreen('screen-confirm')">Let's go →</button>
+
+  <div class="credit">Prepared by <a href="https://www.upstreamconsulting.ca" target="_blank">Upstream Consulting</a></div>
+</div>
+
+<!-- SCREEN: Confirm Questions -->
+<div id="screen-confirm" class="screen">
+  <h1>Quick Confirms</h1>
+  <p>Before we dive in — a few things to make sure we've got right.</p>
+  <div class="progress-bar"><div class="progress-fill" id="confirm-progress" style="width: 0%"></div></div>
+
+  <div id="confirm-questions"></div>
+
+  <div class="btn-row" style="margin-top: 24px;">
+    <button class="btn btn-outline" onclick="showScreen('screen-intro')">← Back</button>
+    <button class="btn btn-green" id="btn-to-map" onclick="showScreen('screen-map')">Continue to Map →</button>
+  </div>
+</div>
+
+<!-- SCREEN: Map -->
+<div id="screen-map" class="screen">
+  <h1>Your Operations Map</h1>
+  <p>Click any area to dive deeper. Your answers save automatically.</p>
+  <div class="progress-bar"><div class="progress-fill" id="map-progress" style="width: 0%"></div></div>
+
+  <div class="map-header">Two business rhythms — one company</div>
+
+  <div class="map-columns">
+    <div>
+      <div class="col-label project">Project-based work</div>
+    </div>
+    <div>
+      <div class="col-label service">Recurring service contracts</div>
+    </div>
+  </div>
+
+  <div class="map-columns" id="map-grid"></div>
+
+  <div class="map-arrow">↓</div>
+  <div class="map-shared" id="map-shared"></div>
+
+  <div class="btn-row" style="margin-top: 28px; justify-content: center;">
+    <button class="btn btn-gold" onclick="showSend()">Send to Levi →</button>
+  </div>
+</div>
+
+<!-- SCREEN: Drill Down -->
+<div id="screen-drill" class="screen">
+  <div class="drill-header">
+    <button class="back-btn" onclick="showScreen('screen-map')">← Back to Map</button>
+    <h2 id="drill-title" style="margin: 0;"></h2>
+  </div>
+  <p id="drill-desc"></p>
+  <div id="drill-questions"></div>
+
+  <div class="btn-row" style="margin-top: 24px;">
+    <button class="btn btn-outline" onclick="showScreen('screen-map')">← Back to Map</button>
+    <button class="btn btn-green" id="btn-drill-next">Next Area →</button>
+  </div>
+</div>
+
+<!-- SCREEN: Send -->
+<div id="screen-send" class="screen">
+  <h1>Send to Levi</h1>
+  <p>Here's everything you've entered. Review it, then hit send.</p>
+
+  <div class="summary-block" id="summary-content"></div>
+
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="showScreen('screen-map')">← Back to Map</button>
+    <button class="btn btn-green" onclick="sendToLevi()">Send to Levi →</button>
+    <button class="btn btn-outline btn-sm" onclick="copyToClipboard(event)">Copy to clipboard</button>
+  </div>
+</div>
+
+<!-- NAV BAR -->
+<div class="nav-bar hidden" id="nav-bar">
+  <button class="btn btn-sm btn-outline" onclick="showScreen('screen-map')">← Map</button>
+  <button class="btn btn-sm btn-gold" onclick="showSend()">Send to Levi →</button>
+</div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────
+const CONFIRM_QUESTIONS = [
+  {
+    id: "cq1",
+    question: "Horizon runs two distinct business rhythms — project-based construction work AND recurring maintenance/service contracts. Correct?",
+    options: ["Yes, both are significant parts of the business", "Mostly project-based, service is small", "Mostly service/maintenance, projects are occasional", "It's more blended than that"]
+  },
+  {
+    id: "cq2",
+    question: "The company currently operates across 3 regions — Lower Mainland, Sea-to-Sky, and Okanagan?",
+    options: ["Yes, all three are active", "Only two of those are active right now", "We've expanded beyond those three", "That's roughly right but the boundaries are fuzzy"]
+  },
+  {
+    id: "cq3",
+    question: "Cassian (snow/ice) and Vacterra (hydrovac) operate as separate subsidiaries with their own workflows?",
+    options: ["Yes, mostly separate operations", "They share a lot of resources/staff with the main company", "They're separate on paper but run as divisions", "I'm not sure how they're structured"]
+  },
+  {
+    id: "cq4",
+    question: "The current tech stack includes Power BI, M365, and likely Sage + ADP — but tools aren't well-integrated across departments?",
+    options: ["That's accurate — lots of manual bridging between tools", "We have some integrations but major gaps remain", "Our tools work okay, the issue is more process than tech", "Our tech stack is different than described"]
+  },
+  {
+    id: "cq5",
+    question: "The biggest pain points are around information handoff — estimates to job costs, field data to finance, and getting clean reports to leadership?",
+    options: ["Yes — those are the top three", "Those are issues but the biggest pain is something else", "Partially right — I'd reorder the priority", "I'd need to think about this more"]
+  }
+];
+
+const MAP_AREAS = [
+  { id: "p1", col: "project", num: "1", title: "Business Development", sub: "RFPs, relationships, bid/no-bid decisions", desc: "How project work enters the pipeline." },
+  { id: "p2", col: "project", num: "2", title: "Estimating & Preconstruction", sub: "Takeoffs, pricing, scope, sub quotes", desc: "How bids are built and what information carries forward." },
+  { id: "p3", col: "project", num: "3", title: "Project Execution", sub: "Site supervision, daily logs, RFIs, changes", desc: "How work gets managed in the field." },
+  { id: "p4", col: "project", num: "4", title: "Job Costing & Cost Control", sub: "Budget vs actual, labour, materials", desc: "How costs are tracked against estimates." },
+  { id: "p5", col: "project", num: "5", title: "Progress Billing", sub: "Draws, holdbacks, change orders", desc: "How project invoicing flows." },
+  { id: "s1", col: "service", num: "1", title: "Contract Management", sub: "Annual renewals, scope, client SLAs", desc: "How service contracts are managed." },
+  { id: "s2", col: "service", num: "2", title: "Scheduling & Dispatch", sub: "Route optimization, crew assignment", desc: "How crews get assigned and routed." },
+  { id: "s3", col: "service", num: "3", title: "Field Delivery", sub: "Visit logs, exceptions, crew hours", desc: "How field work is recorded for service contracts." },
+  { id: "s4", col: "service", num: "4", title: "Performance Tracking", sub: "Site compliance, visit frequency, QA", desc: "How quality and compliance are measured." },
+  { id: "s5", col: "service", num: "5", title: "Monthly Billing", sub: "Contract invoices, extras, reconciliation", desc: "How recurring billing works." },
+  { id: "f6", col: "shared", num: "6", title: "Finance, Reporting & Exec Visibility", sub: "AR/AP, Power BI, payroll, multi-entity consolidation", desc: "How financial data comes together for leadership." },
+  { id: "cx", col: "cross", num: "✦", title: "People & Equipment Ops", sub: "HR, fleet, safety, certifications, subcontractors", desc: "The cross-cutting functions that support everything above." }
+];
+
+const DRILL_QUESTIONS = {
+  p1: [
+    { id: "p1q1", label: "How do new project opportunities typically come in?", hint: "e.g. referrals, RFPs, repeat clients, cold outreach", type: "text" },
+    { id: "p1q2", label: "Who makes the bid/no-bid decision, and what info do they use?", type: "textarea" },
+    { id: "p1q3", label: "Is there a CRM or tracker for opportunities in the pipeline?", type: "mc", options: ["Yes, a dedicated tool", "Spreadsheet or shared doc", "Mostly in people's heads", "Not sure"] },
+    { id: "p1q4", label: "What's the biggest bottleneck or frustration in business development?", type: "textarea" }
+  ],
+  p2: [
+    { id: "p2q1", label: "What tools are used for estimating and takeoffs?", hint: "e.g. Bluebeam, spreadsheets, proprietary software", type: "text" },
+    { id: "p2q2", label: "How does estimate data carry forward into the job once won?", type: "mc", options: ["It's manually re-entered into another system", "Key info transfers but a lot is lost", "There's a solid handoff process", "Depends on the PM/estimator"] },
+    { id: "p2q3", label: "How are sub quotes collected and compared?", type: "textarea" },
+    { id: "p2q4", label: "What information from the estimate do you wish the field team had better access to?", type: "textarea" }
+  ],
+  p3: [
+    { id: "p3q1", label: "How are daily logs and field reports captured?", type: "mc", options: ["Paper-based", "App or digital tool", "Mix of both", "Inconsistent — depends on the crew"] },
+    { id: "p3q2", label: "How are RFIs and change orders tracked?", type: "text" },
+    { id: "p3q3", label: "How does field info (hours, materials, issues) get back to the office?", type: "textarea" },
+    { id: "p3q4", label: "What's the biggest gap between what happens on site and what the office knows?", type: "textarea" }
+  ],
+  p4: [
+    { id: "p4q1", label: "How often are budgets compared to actuals on active jobs?", type: "mc", options: ["Weekly", "Monthly", "At milestones only", "Rarely until the job is done", "It varies by PM"] },
+    { id: "p4q2", label: "Who is responsible for job cost tracking — PMs, accounting, or both?", type: "text" },
+    { id: "p4q3", label: "How are labour hours allocated to specific jobs?", type: "textarea" },
+    { id: "p4q4", label: "When cost overruns happen, how soon do you typically find out?", type: "mc", options: ["Same week", "Within a month", "At billing time", "Sometimes not until job close-out"] }
+  ],
+  p5: [
+    { id: "p5q1", label: "How are progress claims / draw requests prepared?", type: "textarea" },
+    { id: "p5q2", label: "How are holdbacks tracked?", type: "mc", options: ["In the accounting system", "Spreadsheet", "Manual tracking", "Not consistently tracked"] },
+    { id: "p5q3", label: "How do change orders get incorporated into billing?", type: "textarea" },
+    { id: "p5q4", label: "What causes the most delays in getting invoices out?", type: "textarea" }
+  ],
+  s1: [
+    { id: "s1q1", label: "How are service contracts structured — annual, multi-year, seasonal?", type: "text" },
+    { id: "s1q2", label: "Where do contract details (scope, SLAs, pricing) live?", type: "mc", options: ["In a CRM or contract tool", "Spreadsheet", "Filed PDFs/docs", "In people's heads mostly"] },
+    { id: "s1q3", label: "How is the renewal process managed?", type: "textarea" },
+    { id: "s1q4", label: "How do you track which sites are under contract and what's included?", type: "textarea" }
+  ],
+  s2: [
+    { id: "s2q1", label: "How are crews assigned to sites/routes?", type: "mc", options: ["Scheduling software", "Spreadsheet or whiteboard", "Supervisor makes daily calls", "Mix of methods"] },
+    { id: "s2q2", label: "How far in advance are schedules set?", type: "text" },
+    { id: "s2q3", label: "How are last-minute changes or call-ins handled?", type: "textarea" },
+    { id: "s2q4", label: "What's the biggest challenge with scheduling and dispatch?", type: "textarea" }
+  ],
+  s3: [
+    { id: "s3q1", label: "How do crews log completed visits?", type: "mc", options: ["App or digital tool", "Paper logs", "Photo + text to supervisor", "No consistent method"] },
+    { id: "s3q2", label: "How are exceptions or issues at a site reported?", type: "textarea" },
+    { id: "s3q3", label: "How are crew hours tracked for service work?", type: "mc", options: ["Time clock / app", "Paper timesheets", "Supervisor reports", "It's loose"] },
+    { id: "s3q4", label: "What field data do you wish you had better access to?", type: "textarea" }
+  ],
+  s4: [
+    { id: "s4q1", label: "How do you measure whether service work meets the contract standard?", type: "textarea" },
+    { id: "s4q2", label: "Is visit frequency tracked against what's promised in the contract?", type: "mc", options: ["Yes, systematically", "Somewhat — spot checks", "Not really", "Not sure"] },
+    { id: "s4q3", label: "How are client complaints or quality issues handled?", type: "textarea" },
+    { id: "s4q4", label: "What would better performance tracking let you do that you can't today?", type: "textarea" }
+  ],
+  s5: [
+    { id: "s5q1", label: "How are monthly service invoices generated?", type: "mc", options: ["Automatically from the system", "Manually prepared each month", "Template-based but manual", "It varies"] },
+    { id: "s5q2", label: "How are extras or out-of-scope work billed on service contracts?", type: "textarea" },
+    { id: "s5q3", label: "How is revenue reconciled against contract value?", type: "textarea" },
+    { id: "s5q4", label: "What's the most common billing issue on the service side?", type: "textarea" }
+  ],
+  f6: [
+    { id: "f6q1", label: "What does the leadership team most want to see in reports that they can't easily get today?", type: "textarea" },
+    { id: "f6q2", label: "How does financial data from the divisions get consolidated?", type: "mc", options: ["Automated through accounting software", "Manual compilation in Excel", "Power BI pulls from multiple sources", "It's a painful manual process"] },
+    { id: "f6q3", label: "How is payroll data connected to job costing?", type: "mc", options: ["Directly integrated", "Manual mapping after the fact", "Loosely connected", "It's a major gap"] },
+    { id: "f6q4", label: "How are Cassian and Vacterra consolidated into the overall picture?", type: "textarea" },
+    { id: "f6q5", label: "If you could see one report or dashboard that doesn't exist today, what would it show?", type: "textarea" }
+  ],
+  cx: [
+    { id: "cxq1", label: "How are certifications and safety training tracked across 220+ employees?", type: "mc", options: ["HR system or database", "Spreadsheet", "Paper files", "Inconsistent"] },
+    { id: "cxq2", label: "How is equipment/fleet managed — maintenance, allocation, utilization?", type: "textarea" },
+    { id: "cxq3", label: "How are subcontractors managed — prequalification, insurance tracking, performance?", type: "textarea" },
+    { id: "cxq4", label: "What's the biggest people or equipment ops headache?", type: "textarea" }
+  ]
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────
+let state = JSON.parse(localStorage.getItem('horizon-intake') || '{}');
+if (!state.confirms) state.confirms = {};
+if (!state.drills) state.drills = {};
+function saveState() { localStorage.setItem('horizon-intake', JSON.stringify(state)); }
+
+// ─── SCREENS ─────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('nav-bar').classList.toggle('hidden', id === 'screen-intro');
+  window.scrollTo(0, 0);
+  if (id === 'screen-map') renderMap();
+  if (id === 'screen-confirm') renderConfirm();
+}
+
+// ─── CONFIRM ─────────────────────────────────────────────────────────
+function renderConfirm() {
+  const container = document.getElementById('confirm-questions');
+  container.innerHTML = '';
+  CONFIRM_QUESTIONS.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'confirm-card';
+    card.innerHTML = `<div class="question">${q.question}</div><div class="mc-options"></div>`;
+    container.appendChild(card);
+    const optContainer = card.querySelector('.mc-options');
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'mc-btn' + (state.confirms[q.id] === opt ? ' selected' : '');
+      btn.textContent = state.confirms[q.id] === opt ? opt : opt;
+      btn.onclick = () => {
+        state.confirms[q.id] = opt;
+        saveState();
+        optContainer.querySelectorAll('.mc-btn').forEach(b => { b.classList.remove('selected'); b.textContent = b.textContent.replace(/^✓ /, ''); });
+        btn.classList.add('selected');
+        updateConfirmProgress();
+      };
+      optContainer.appendChild(btn);
+    });
+  });
+  updateConfirmProgress();
+}
+
+function updateConfirmProgress() {
+  const answered = Object.keys(state.confirms).length;
+  document.getElementById('confirm-progress').style.width = `${(answered / CONFIRM_QUESTIONS.length) * 100}%`;
+}
+
+// ─── MAP ─────────────────────────────────────────────────────────────
+function renderMap() {
+  const grid = document.getElementById('map-grid');
+  const shared = document.getElementById('map-shared');
+  grid.innerHTML = '';
+  shared.innerHTML = '';
+  const projectAreas = MAP_AREAS.filter(a => a.col === 'project');
+  const serviceAreas = MAP_AREAS.filter(a => a.col === 'service');
+  const sharedAreas = MAP_AREAS.filter(a => a.col === 'shared' || a.col === 'cross');
+  const maxRows = Math.max(projectAreas.length, serviceAreas.length);
+  for (let i = 0; i < maxRows; i++) {
+    grid.appendChild(projectAreas[i] ? createMapBox(projectAreas[i]) : document.createElement('div'));
+    grid.appendChild(serviceAreas[i] ? createMapBox(serviceAreas[i]) : document.createElement('div'));
+  }
+  sharedAreas.forEach(a => shared.appendChild(createMapBox(a)));
+  updateMapProgress();
+}
+
+function createMapBox(area) {
+  const box = document.createElement('div');
+  const colClass = area.col === 'shared' ? 'shared-box' : area.col === 'cross' ? 'cross-box' : area.col + '-box';
+  box.className = `map-box ${colClass}`;
+  const drillData = state.drills[area.id] || {};
+  const questions = DRILL_QUESTIONS[area.id] || [];
+  const answered = questions.filter(q => drillData[q.id] && drillData[q.id].trim()).length;
+  const hasComments = drillData[area.id + '_comments'] && drillData[area.id + '_comments'].trim();
+  const total = questions.length;
+  let badge = '';
+  if (answered === total && total > 0) badge = '<span class="badge complete">Done</span>';
+  else if (answered > 0 || hasComments) badge = `<span class="badge in-progress">${answered}/${total}</span>`;
+  box.innerHTML = `${badge}<div class="box-title"><span class="box-num">${area.num}.</span> ${area.title}</div><div class="box-sub">${area.sub}</div>`;
+  box.onclick = () => showDrill(area.id);
+  return box;
+}
+
+function updateMapProgress() {
+  let totalQ = 0, answeredQ = 0;
+  MAP_AREAS.forEach(a => {
+    const questions = DRILL_QUESTIONS[a.id] || [];
+    const drillData = state.drills[a.id] || {};
+    totalQ += questions.length;
+    answeredQ += questions.filter(q => drillData[q.id] && drillData[q.id].trim()).length;
+  });
+  document.getElementById('map-progress').style.width = `${totalQ ? (answeredQ / totalQ) * 100 : 0}%`;
+}
+
+// ─── VOICE-TO-TEXT ───────────────────────────────────────────────────
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let activeRecognition = null;
+
+function createMicBtn(targetEl) {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'mic-btn';
+  btn.innerHTML = '🎙️';
+  btn.title = 'Tap to dictate';
+
+  if (!SpeechRecognition) {
+    // Fallback: prompt native keyboard dictation
+    btn.onclick = (e) => {
+      e.preventDefault();
+      targetEl.focus();
+      alert(getMicHint());
+    };
+  } else {
+    btn.onclick = (e) => {
+      e.preventDefault();
+      if (activeRecognition) {
+        activeRecognition.stop();
+        activeRecognition = null;
+        btn.classList.remove('recording');
+        btn.innerHTML = '🎙️';
+        return;
+      }
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-CA';
+      let finalTranscript = targetEl.value || targetEl.textContent || '';
+
+      recognition.onresult = (event) => {
+        let interim = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += (finalTranscript ? ' ' : '') + event.results[i][0].transcript;
+          } else {
+            interim += event.results[i][0].transcript;
+          }
+        }
+        targetEl.value = finalTranscript + (interim ? ' ' + interim : '');
+        targetEl.dispatchEvent(new Event('input'));
+      };
+
+      recognition.onerror = () => {
+        btn.classList.remove('recording');
+        btn.innerHTML = '🎙️';
+        activeRecognition = null;
+      };
+
+      recognition.onend = () => {
+        btn.classList.remove('recording');
+        btn.innerHTML = '🎙️';
+        activeRecognition = null;
+      };
+
+      recognition.start();
+      activeRecognition = recognition;
+      btn.classList.add('recording');
+      btn.innerHTML = '⏹️';
+    };
+  }
+  return btn;
+}
+
+function getMicHint() {
+  const ua = navigator.userAgent;
+  if (/iPhone|iPad/.test(ua)) return 'Tap the microphone icon on your iOS keyboard to dictate.';
+  if (/Android/.test(ua)) return 'Tap the microphone icon on your keyboard (Google/Samsung) to dictate.';
+  return 'Press Windows + H to activate voice typing, or use your browser\u2019s dictation feature.';
+}
+
+function wrapWithMic(inputEl) {
+  const wrap = document.createElement('div');
+  wrap.className = 'input-wrap';
+  inputEl.parentNode.insertBefore(wrap, inputEl);
+  wrap.appendChild(inputEl);
+  wrap.appendChild(createMicBtn(inputEl));
+  return wrap;
+}
+
+// ─── DRILL ───────────────────────────────────────────────────────────
+function showDrill(areaId) {
+  const area = MAP_AREAS.find(a => a.id === areaId);
+  const questions = DRILL_QUESTIONS[areaId] || [];
+  document.getElementById('drill-title').textContent = area.title;
+  document.getElementById('drill-desc').textContent = area.desc;
+  const container = document.getElementById('drill-questions');
+  container.innerHTML = '';
+  if (!state.drills[areaId]) state.drills[areaId] = {};
+  questions.forEach(q => {
+    const div = document.createElement('div');
+    div.className = 'drill-question';
+    if (q.type === 'mc') {
+      div.innerHTML = `<label>${q.label}</label><div class="mc-options"></div>`;
+      container.appendChild(div);
+      const optContainer = div.querySelector('.mc-options');
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'mc-btn' + (state.drills[areaId][q.id] === opt ? ' selected' : '');
+        btn.textContent = opt;
+        btn.onclick = () => {
+          state.drills[areaId][q.id] = opt;
+          saveState();
+          optContainer.querySelectorAll('.mc-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+        };
+        optContainer.appendChild(btn);
+      });
+    } else if (q.type === 'textarea') {
+      div.innerHTML = `<label>${q.label}</label><textarea placeholder="Type or tap 🎙️ to dictate...">${state.drills[areaId][q.id] || ''}</textarea>${q.hint ? `<div class="hint">${q.hint}</div>` : ''}`;
+      container.appendChild(div);
+      const ta = div.querySelector('textarea');
+      ta.addEventListener('input', e => { state.drills[areaId][q.id] = e.target.value; saveState(); });
+      wrapWithMic(ta);
+    } else {
+      div.innerHTML = `<label>${q.label}</label><input type="text" value="${state.drills[areaId][q.id] || ''}" placeholder="Type or tap 🎙️ to dictate...">${q.hint ? `<div class="hint">${q.hint}</div>` : ''}`;
+      container.appendChild(div);
+      const inp = div.querySelector('input');
+      inp.addEventListener('input', e => { state.drills[areaId][q.id] = e.target.value; saveState(); });
+      wrapWithMic(inp);
+    }
+  });
+
+  // General comments section
+  const commentsKey = areaId + '_comments';
+  const commentsDiv = document.createElement('div');
+  commentsDiv.className = 'general-comments';
+  commentsDiv.innerHTML = `<label>General comments for ${area.title}</label><div class="input-wrap"><textarea placeholder="Anything else about this area — context, concerns, ideas...">${state.drills[areaId][commentsKey] || ''}</textarea></div><div class="hint">Optional — add any extra context the questions above didn't cover.</div>`;
+  container.appendChild(commentsDiv);
+  const commTa = commentsDiv.querySelector('textarea');
+  commTa.addEventListener('input', e => { state.drills[areaId][commentsKey] = e.target.value; saveState(); });
+  commentsDiv.querySelector('.input-wrap').appendChild(createMicBtn(commTa));
+
+  const areaIds = MAP_AREAS.map(a => a.id);
+  const currentIdx = areaIds.indexOf(areaId);
+  const nextBtn = document.getElementById('btn-drill-next');
+  if (currentIdx < areaIds.length - 1) {
+    const nextArea = MAP_AREAS[currentIdx + 1];
+    nextBtn.textContent = `Next: ${nextArea.title} →`;
+    nextBtn.onclick = () => showDrill(nextArea.id);
+    nextBtn.style.display = '';
+  } else {
+    nextBtn.textContent = 'Back to Map →';
+    nextBtn.onclick = () => showScreen('screen-map');
+  }
+  showScreen('screen-drill');
+}
+
+// ─── SEND ────────────────────────────────────────────────────────────
+function showSend() {
+  document.getElementById('summary-content').textContent = buildSummary();
+  showScreen('screen-send');
+}
+
+function buildSummary() {
+  let text = 'HORIZON CONTRACTING GROUP\nOperations Intake\n';
+  text += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+  text += 'CONFIRMATIONS\n\n';
+  CONFIRM_QUESTIONS.forEach(q => {
+    text += `Q: ${q.question}\nA: ${state.confirms[q.id] || '(not answered)'}\n\n`;
+  });
+  MAP_AREAS.forEach(area => {
+    const questions = DRILL_QUESTIONS[area.id] || [];
+    const drillData = state.drills[area.id] || {};
+    const commentsKey = area.id + '_comments';
+    const hasAnswers = questions.some(q => drillData[q.id] && drillData[q.id].trim()) || (drillData[commentsKey] && drillData[commentsKey].trim());
+    if (hasAnswers) {
+      text += `━━ ${area.num}. ${area.title.toUpperCase()} ━━\n\n`;
+      questions.forEach(q => {
+        if (drillData[q.id] && drillData[q.id].trim()) {
+          text += `Q: ${q.label}\nA: ${drillData[q.id]}\n\n`;
+        }
+      });
+      if (drillData[commentsKey] && drillData[commentsKey].trim()) {
+        text += `General Comments:\n${drillData[commentsKey]}\n\n`;
+      }
+    }
+  });
+  text += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+  text += `Submitted: ${new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}\n`;
+  text += 'Prepared by Upstream Consulting\n';
+  return text;
+}
+
+function sendToLevi() {
+  const summary = buildSummary();
+  const subject = encodeURIComponent('Horizon Contracting — Operations Intake');
+  const body = encodeURIComponent(summary);
+  window.location.href = `mailto:levi@upstreamconsulting.ca?subject=${subject}&body=${body}`;
+}
+
+function copyToClipboard(e) {
+  navigator.clipboard.writeText(buildSummary()).then(() => {
+    const btn = e.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+}
+
+renderConfirm();
+</script>
+
+</body>
+</html>
