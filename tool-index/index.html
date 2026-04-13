@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tool Index — Upstream Consulting</title>
+<style>
+:root {
+  --bg-primary: #0f0f1a;
+  --bg-secondary: #1a1a2e;
+  --bg-card: #222240;
+  --bg-card-hover: #2a2a50;
+  --text-primary: #e8e8f0;
+  --text-secondary: #a0a0b8;
+  --text-muted: #6b6b85;
+  --accent: #2563eb;
+  --accent-hover: #3b82f6;
+  --accent-light: rgba(37, 99, 235, 0.15);
+  --border: #2d2d4a;
+  --border-light: #3a3a5c;
+  --green: #22c55e;
+  --green-bg: rgba(34, 197, 94, 0.12);
+  --amber: #f59e0b;
+  --amber-bg: rgba(245, 158, 11, 0.12);
+  --red: #ef4444;
+  --red-bg: rgba(239, 68, 68, 0.12);
+  --gold: #eab308;
+  --gray: #6b7280;
+  --purple: #8b5cf6;
+  --purple-bg: rgba(139, 92, 246, 0.12);
+  --cyan: #06b6d4;
+  --cyan-bg: rgba(6, 182, 212, 0.12);
+  --radius: 8px;
+  --radius-sm: 5px;
+  --radius-lg: 12px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-hover: 0 4px 16px rgba(0,0,0,0.4);
+  --transition: 0.2s ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+
+.back-link {
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  z-index: 100;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: color var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.back-link:hover { color: var(--text-primary); }
+.back-link svg { width: 14px; height: 14px; }
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 32px;
+}
+
+header {
+  text-align: center;
+  padding: 48px 0 32px;
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+header h1 span { color: var(--accent); }
+
+header p {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 28px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: 4px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tab-btn {
+  padding: 10px 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-btn:hover { color: var(--text-primary); }
+.tab-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.tab-count {
+  background: rgba(255,255,255,0.15);
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Search & Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+  max-width: 400px;
+}
+
+.search-wrap svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--text-muted); }
+
+.result-count {
+  color: var(--text-secondary);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.clear-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.clear-btn:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* Filter sections */
+.filters-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filters-toggle h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filters-toggle .chevron {
+  transition: transform var(--transition);
+  color: var(--text-muted);
+}
+
+.filters-toggle.collapsed .chevron {
+  transform: rotate(-90deg);
+}
+
+.filter-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  max-height: 800px;
+  opacity: 1;
+  transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease, margin 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-panel.collapsed {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 24px;
+  border-color: transparent;
+  margin-bottom: 8px;
+}
+
+.filter-section {
+  margin-bottom: 14px;
+}
+
+.filter-section:last-child { margin-bottom: 0; }
+
+.filter-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filter-pill {
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.filter-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-pill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  min-height: 0;
+}
+
+.active-filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: var(--accent-light);
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.active-filter-tag:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.active-filter-tag .x { font-size: 13px; font-weight: 700; }
+
+/* Card grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1100px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .container { padding: 16px; }
+  header { padding: 32px 0 20px; }
+  header h1 { font-size: 22px; }
+  .filter-panel { padding: 14px 16px; }
+  .controls { gap: 8px; }
+  .search-wrap { max-width: 100%; min-width: 100%; }
+}
+
+/* Card */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: all var(--transition);
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+
+.card-name {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.card-type-badge {
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge-mcp {
+  background: var(--purple-bg);
+  color: var(--purple);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.badge-agent {
+  background: var(--cyan-bg);
+  color: var(--cyan);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.card-desc {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  flex: 1;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  padding: 2px 9px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.06);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.tag-worktype { background: rgba(37, 99, 235, 0.1); color: #60a5fa; border-color: rgba(37, 99, 235, 0.2); }
+.tag-stage { background: rgba(34, 197, 94, 0.1); color: #4ade80; border-color: rgba(34, 197, 94, 0.2); }
+.tag-tool { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border-color: rgba(245, 158, 11, 0.2); }
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+.cost-free { background: var(--green-bg); color: var(--green); }
+.cost-freemium { background: var(--amber-bg); color: var(--amber); }
+.cost-paid { background: var(--red-bg); color: var(--red); }
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-tested { background: var(--green); }
+.status-untested { background: var(--gray); }
+.status-recommended { background: var(--gold); box-shadow: 0 0 6px rgba(234, 179, 8, 0.4); }
+
+.meta-text {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.source-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.source-official { background: rgba(37, 99, 235, 0.15); color: var(--accent); }
+.source-community { background: rgba(139, 92, 246, 0.12); color: var(--purple); }
+.source-internal { background: rgba(6, 182, 212, 0.12); color: var(--cyan); }
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.card-author {
+  font-size: 11px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-link {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+  transition: color var(--transition);
+}
+
+.card-link:hover { color: var(--accent-hover); }
+
+.details-toggle {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+.details-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.card-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.card-details.open { max-height: 300px; }
+
+.card-details-inner {
+  padding-top: 12px;
+  margin-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.card-details-inner p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+.card-details-inner .detail-label {
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* No results */
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  grid-column: 1 / -1;
+}
+
+.no-results h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.no-results p { font-size: 14px; }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 0.3s ease forwards;
+  opacity: 0;
+}
+</style>
+</head>
+<body>
+
+<a href="../../index.html" class="back-link">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+  Back to Index
+</a>
+
+<div class="container">
+  <header>
+    <h1><span>Tool Index</span> — Upstream Consulting</h1>
+    <p>MCPs and AI Agents for business workflows</p>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="all">
+      All <span class="tab-count" id="count-all">0</span>
+    </button>
+    <button class="tab-btn" data-tab="mcps">
+      MCPs <span class="tab-count" id="count-mcps">0</span>
+    </button>
+    <button class="tab-btn" data-tab="agents">
+      Agents <span class="tab-count" id="count-agents">0</span>
+    </button>
+  </div>
+
+  <!-- Search & Controls -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" class="search-input" id="search" placeholder="Search tools and agents...">
+    </div>
+    <span class="result-count" id="result-count">Showing 0 of 0</span>
+    <button class="clear-btn" id="clear-all">Clear Filters</button>
+  </div>
+
+  <!-- Active Filters -->
+  <div class="active-filters" id="active-filters"></div>
+
+  <!-- Filters -->
+  <div class="filters-toggle" id="filters-toggle">
+    <h3>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+      Filters
+    </h3>
+    <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+
+  <div class="filter-panel" id="filter-panel">
+    <div class="filter-section">
+      <span class="filter-label">Work Type</span>
+      <div class="filter-pills" data-category="workTypes">
+        <button class="filter-pill" data-value="Business Development">Business Development</button>
+        <button class="filter-pill" data-value="Operations">Operations</button>
+        <button class="filter-pill" data-value="Finance & Accounting">Finance & Accounting</button>
+        <button class="filter-pill" data-value="Marketing & Content">Marketing & Content</button>
+        <button class="filter-pill" data-value="HR & People">HR & People</button>
+        <button class="filter-pill" data-value="Project Management">Project Management</button>
+        <button class="filter-pill" data-value="IT & DevOps">IT & DevOps</button>
+        <button class="filter-pill" data-value="Legal & Compliance">Legal & Compliance</button>
+        <button class="filter-pill" data-value="Research & Analysis">Research & Analysis</button>
+        <button class="filter-pill" data-value="Communication">Communication</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Workflow Stage</span>
+      <div class="filter-pills" data-category="workflowStages">
+        <button class="filter-pill" data-value="Research">Research</button>
+        <button class="filter-pill" data-value="Analysis">Analysis</button>
+        <button class="filter-pill" data-value="Creation">Creation</button>
+        <button class="filter-pill" data-value="Communication">Communication</button>
+        <button class="filter-pill" data-value="Reporting">Reporting</button>
+        <button class="filter-pill" data-value="Automation">Automation</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Tool / Platform</span>
+      <div class="filter-pills" data-category="tools">
+        <button class="filter-pill" data-value="Outlook / Email">Outlook / Email</button>
+        <button class="filter-pill" data-value="SharePoint / OneDrive">SharePoint / OneDrive</button>
+        <button class="filter-pill" data-value="Excel / Sheets">Excel / Sheets</button>
+        <button class="filter-pill" data-value="Canva">Canva</button>
+        <button class="filter-pill" data-value="Slack / Teams">Slack / Teams</button>
+        <button class="filter-pill" data-value="GitHub">GitHub</button>
+        <button class="filter-pill" data-value="Google Workspace">Google Workspace</button>
+        <button class="filter-pill" data-value="Notion">Notion</button>
+        <button class="filter-pill" data-value="Browser / Web">Browser / Web</button>
+        <button class="filter-pill" data-value="File System">File System</button>
+        <button class="filter-pill" data-value="Database">Database</button>
+        <button class="filter-pill" data-value="Calendar">Calendar</button>
+        <button class="filter-pill" data-value="CRM">CRM</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Cost</span>
+      <div class="filter-pills" data-category="cost">
+        <button class="filter-pill" data-value="Free">Free</button>
+        <button class="filter-pill" data-value="Freemium">Freemium</button>
+        <button class="filter-pill" data-value="Paid">Paid</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Status</span>
+      <div class="filter-pills" data-category="status">
+        <button class="filter-pill" data-value="Tested">Tested</button>
+        <button class="filter-pill" data-value="Untested">Untested</button>
+        <button class="filter-pill" data-value="Recommended">Recommended</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Complexity</span>
+      <div class="filter-pills" data-category="complexity">
+        <button class="filter-pill" data-value="Plug & Play">Plug & Play</button>
+        <button class="filter-pill" data-value="Needs Config">Needs Config</button>
+        <button class="filter-pill" data-value="Needs Dev">Needs Dev</button>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <span class="filter-label">Source</span>
+      <div class="filter-pills" data-category="source">
+        <button class="filter-pill" data-value="Official">Official</button>
+        <button class="filter-pill" data-value="Community">Community</button>
+        <button class="filter-pill" data-value="Internal">Internal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Grid -->
+  <div class="card-grid" id="card-grid"></div>
+
+  <div style="height: 60px;"></div>
+</div>
+
+<script>
+// ── Data ──
+let DATA = { mcps: [], agents: [], metadata: {} };
+
+// ── State ──
+const state = {
+  tab: 'all',
+  search: '',
+  filters: {
+    workTypes: [],
+    workflowStages: [],
+    tools: [],
+    cost: [],
+    status: [],
+    complexity: [],
+    source: []
+  },
+  filtersOpen: true
+};
+
+// ── Init ──
+async function init() {
+  try {
+    const resp = await fetch('data.json');
+    DATA = await resp.json();
+  } catch (e) {
+    console.error('Failed to load data.json, using embedded fallback');
+  }
+  updateCounts();
+  render();
+  bindEvents();
+}
+
+// ── Bind Events ──
+function bindEvents() {
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.tab = btn.dataset.tab;
+      render();
+    });
+  });
+
+  // Search
+  document.getElementById('search').addEventListener('input', (e) => {
+    state.search = e.target.value.toLowerCase().trim();
+    render();
+  });
+
+  // Clear all
+  document.getElementById('clear-all').addEventListener('click', () => {
+    state.search = '';
+    document.getElementById('search').value = '';
+    Object.keys(state.filters).forEach(k => state.filters[k] = []);
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    render();
+  });
+
+  // Filter pills
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const category = pill.closest('[data-category]').dataset.category;
+      const value = pill.dataset.value;
+      const idx = state.filters[category].indexOf(value);
+      if (idx === -1) {
+        state.filters[category].push(value);
+        pill.classList.add('active');
+      } else {
+        state.filters[category].splice(idx, 1);
+        pill.classList.remove('active');
+      }
+      render();
+    });
+  });
+
+  // Escape key clears search
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      state.search = '';
+      document.getElementById('search').value = '';
+      document.getElementById('search').blur();
+      render();
+    }
+  });
+
+  // Filter toggle
+  document.getElementById('filters-toggle').addEventListener('click', () => {
+    state.filtersOpen = !state.filtersOpen;
+    document.getElementById('filters-toggle').classList.toggle('collapsed', !state.filtersOpen);
+    document.getElementById('filter-panel').classList.toggle('collapsed', !state.filtersOpen);
+  });
+}
+
+// ── Get items by tab ──
+function getItemsByTab() {
+  let items = [];
+  if (state.tab === 'all' || state.tab === 'mcps') {
+    items = items.concat(DATA.mcps.map(m => ({ ...m, _type: 'mcp' })));
+  }
+  if (state.tab === 'all' || state.tab === 'agents') {
+    items = items.concat(DATA.agents.map(a => ({ ...a, _type: 'agent' })));
+  }
+  return items;
+}
+
+// ── Filter items ──
+function filterItems(items) {
+  return items.filter(item => {
+    // Search
+    if (state.search) {
+      const haystack = (item.name + ' ' + item.description + ' ' + (item.longDescription || '') + ' ' + (item.notes || '') + ' ' + (item.author || '')).toLowerCase();
+      if (!haystack.includes(state.search)) return false;
+    }
+
+    // Filters: AND across categories, OR within category
+    for (const [category, values] of Object.entries(state.filters)) {
+      if (values.length === 0) continue;
+
+      if (Array.isArray(item[category])) {
+        // Array field (workTypes, workflowStages, tools) — OR within
+        if (!values.some(v => item[category].includes(v))) return false;
+      } else {
+        // Scalar field (cost, status, complexity, source) — OR within
+        if (!values.includes(item[category])) return false;
+      }
+    }
+
+    return true;
+  });
+}
+
+// ── Render ──
+function render() {
+  const allItems = getItemsByTab();
+  const filtered = filterItems(allItems);
+
+  // Update count
+  const totalAll = DATA.mcps.length + DATA.agents.length;
+  document.getElementById('result-count').textContent = `Showing ${filtered.length} of ${allItems.length}`;
+
+  // Active filters
+  renderActiveFilters();
+
+  // Tab counts (unfiltered)
+  updateCounts();
+
+  // Cards
+  const grid = document.getElementById('card-grid');
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="no-results">
+        <h3>No matches found</h3>
+        <p>Try adjusting your filters or search terms</p>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((item, i) => renderCard(item, i)).join('');
+
+  // Bind detail toggles
+  grid.querySelectorAll('.details-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const details = btn.previousElementSibling.querySelector('.card-details') || btn.nextElementSibling;
+      const detailsEl = btn.closest('.card').querySelector('.card-details');
+      if (detailsEl) {
+        detailsEl.classList.toggle('open');
+        btn.textContent = detailsEl.classList.contains('open') ? 'Less' : 'Details';
+      }
+    });
+  });
+}
+
+function renderCard(item, index) {
+  const typeBadge = item._type === 'mcp'
+    ? '<span class="card-type-badge badge-mcp">MCP</span>'
+    : '<span class="card-type-badge badge-agent">Agent</span>';
+
+  const costClass = item.cost === 'Free' ? 'cost-free' : item.cost === 'Freemium' ? 'cost-freemium' : 'cost-paid';
+
+  const statusClass = item.status === 'Tested' ? 'status-tested' : item.status === 'Recommended' ? 'status-recommended' : 'status-untested';
+  const statusLabel = item.status;
+
+  const sourceClass = item.source === 'Official' ? 'source-official' : item.source === 'Internal' ? 'source-internal' : 'source-community';
+
+  const workTypeTags = (item.workTypes || []).map(t => `<span class="tag tag-worktype">${t}</span>`).join('');
+  const stageTags = (item.workflowStages || []).map(t => `<span class="tag tag-stage">${t}</span>`).join('');
+  const toolTags = (item.tools || []).filter(t => t).map(t => `<span class="tag tag-tool">${t}</span>`).join('');
+
+  const sourceLink = item.sourceUrl ? `<a href="${item.sourceUrl}" target="_blank" rel="noopener" class="card-link">Source &rarr;</a>` : '';
+
+  const detailsContent = `
+    <div class="card-details">
+      <div class="card-details-inner">
+        ${item.longDescription ? `<p>${item.longDescription}</p>` : ''}
+        ${item.notes ? `<p><span class="detail-label">Notes:</span> ${item.notes}</p>` : ''}
+        <p><span class="detail-label">Complexity:</span> ${item.complexity} &nbsp; <span class="detail-label">Added:</span> ${item.dateAdded}</p>
+      </div>
+    </div>
+  `;
+
+  return `
+    <div class="card" style="animation-delay: ${Math.min(index * 0.03, 0.6)}s">
+      <div class="card-header">
+        <span class="card-name">${item.name}</span>
+        ${typeBadge}
+      </div>
+      <p class="card-desc">${item.description}</p>
+      <div class="card-tags">
+        ${workTypeTags}${stageTags}${toolTags}
+      </div>
+      <div class="card-meta">
+        <span class="meta-badge ${costClass}">${item.cost}</span>
+        <span class="meta-badge" style="display:flex;align-items:center;gap:4px;background:transparent;padding:0;">
+          <span class="status-dot ${statusClass}"></span>
+          <span class="meta-text">${statusLabel}</span>
+        </span>
+        <span class="source-badge ${sourceClass}">${item.source}</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-author">${item.author || ''}</span>
+        ${sourceLink}
+      </div>
+      ${detailsContent}
+      <button class="details-toggle">Details</button>
+    </div>
+  `;
+}
+
+function renderActiveFilters() {
+  const container = document.getElementById('active-filters');
+  const tags = [];
+  for (const [category, values] of Object.entries(state.filters)) {
+    for (const value of values) {
+      tags.push({ category, value });
+    }
+  }
+  if (tags.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = tags.map(t =>
+    `<span class="active-filter-tag" data-category="${t.category}" data-value="${t.value}">
+      ${t.value} <span class="x">&times;</span>
+    </span>`
+  ).join('');
+
+  container.querySelectorAll('.active-filter-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const cat = tag.dataset.category;
+      const val = tag.dataset.value;
+      const idx = state.filters[cat].indexOf(val);
+      if (idx !== -1) state.filters[cat].splice(idx, 1);
+      // Deactivate corresponding pill
+      document.querySelectorAll(`[data-category="${cat}"] .filter-pill`).forEach(p => {
+        if (p.dataset.value === val) p.classList.remove('active');
+      });
+      render();
+    });
+  });
+}
+
+function updateCounts() {
+  document.getElementById('count-all').textContent = DATA.mcps.length + DATA.agents.length;
+  document.getElementById('count-mcps').textContent = DATA.mcps.length;
+  document.getElementById('count-agents').textContent = DATA.agents.length;
+}
+
+// ── Launch ──
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
